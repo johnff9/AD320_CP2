@@ -1,0 +1,47 @@
+    /*
+      Name: John Farnandez
+      Date:  October 11, 2024
+      This is the styles.css page for my CP1 project. It contains google font
+      as well as flexbox usage to wrap and move around elements of the html files I created.
+    */
+body {
+  background-color: #a9a7a7bc;
+  font-family: 'Roboto', sans-serif; /* Using Google Font */
+  margin: 0 auto;
+  color: #333;
+  line-height: 1.6;
+  width: 80%;
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+article {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: rgb(140, 139, 139);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+
+}
+
+header, nav {
+  background-color: #1DB954;
+  color: rgb(255, 255, 255);
+  padding: 15px;
+  text-align: center;
+}
+
+
+footer {
+  background-color: #193c13;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
