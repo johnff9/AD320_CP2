@@ -18,7 +18,7 @@ function getAccessTokenFromUrl() {
     return params.get('access_token');
 }
 
-let accessToken = 'BQBtJlmWhrnGS1cfScnhvBrs38ysSysYk7h4bF9YpVbWy2QZ1Xylh7gq-UdwKeGNbJCoVDuvUOsomMT3YEW1Ez7HGWq6_eqriouRqTq-LecjQV3gbJpbjvDNvyjHIxC5tuD69HAGIB1juMvM__sbPNN62XlQMk5hMeNy3h9AbxxizU0fUpWeVWZo6qRqAmqRgTC-RnU55Fxj_n29';
+let accessToken = 'BQCCimi8Plde_LrJPzXiGmzT8_eoW2OScHhCFc38nBm8_Te1nOyevW23Zs5Myd45MwUN3dLpFY0C6tSZ8On24s9gY7AnqLtTUUTCCbkcN7W2UMYy1iJpQcyZbzwN0yg6mjKwMuoGFVYZOaSNl1lAc_YRCate-1_5KBWDVCBuyyGDRIfvK6tSa7EotJAvsIvt_EgXLd9BppGD9_zD';
 if (!accessToken) {
     authorize();
 }
