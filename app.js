@@ -18,32 +18,39 @@ function getAccessTokenFromUrl() {
     return params.get('access_token');
 }
 
-let accessToken = 'BQCCimi8Plde_LrJPzXiGmzT8_eoW2OScHhCFc38nBm8_Te1nOyevW23Zs5Myd45MwUN3dLpFY0C6tSZ8On24s9gY7AnqLtTUUTCCbkcN7W2UMYy1iJpQcyZbzwN0yg6mjKwMuoGFVYZOaSNl1lAc_YRCate-1_5KBWDVCBuyyGDRIfvK6tSa7EotJAvsIvt_EgXLd9BppGD9_zD';
+let accessToken = 'BQBxjj8uq0gRJgCHN6A3BqxsnmN73mSKXoCgDGGQ8K88tAhL-iRbwPYw4QiOax2asaHgLXfzmZJXKgvicrC97TjAbBwLAssVN5yh2xK5w91ha7vUOkALZ3fQ9LaqFOoImYDqOowj_JnLh-zbsEzDJ9h374cVGabTxJV97xm4j_oeJ_OSwxjyx1lf8TewheZjvgdOKhmbh33nZ3a0';
 if (!accessToken) {
     authorize();
 }
 
-async function fetchLastPlayed() {
+function statusCheck(response) {
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    return response;
+  }
+  
+  function handleError(error) {
+    const errorMsg = document.createElement("p");
+    errorMsg.innerText = `Error: ${error.message}`;
+    document.getElementById("current-track").appendChild(errorMsg);
+  }
+  
+  async function fetchLastPlayed() {
     if (!accessToken) return;
-
-    const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=1', {
+  
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/player/recently-played?limit=1', {
         headers: {
-            Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`
         }
-    });
-
-    if (response.status === 401) {
-        // Token expired or unauthorized, re-authorize
-        authorize();
-    } else if (response.ok) {
-        try {
-            const data = await response.json();
-            displayTrack(data);
-        } catch (error) {
-            console.error("Error parsing JSON:", error);
-        }
+      });
+      statusCheck(response); // Using statusCheck here
+      const data = await response.json();
+      displayTrack(data);
+    } catch (error) {
+      handleError(error); // Using handleError here
     }
-}
+  }
+  
 
 function displayTrack(data) {
     const lastTrack = data.items && data.items[0] && data.items[0].track;
@@ -64,4 +71,11 @@ function displayTrack(data) {
     document.getElementById("album-image").src = albumImage;
 }
 
-window.addEventListener('load', fetchLastPlayed);
+window.addEventListener('load', () => {
+    fetchLastPlayed().then(() => {
+        const currentTrack = document.getElementById("current-track");
+        if (currentTrack) {
+            currentTrack.classList.add("active");
+        }
+    });
+});
